@@ -1,0 +1,11 @@
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    color: rebeccapurple;
+    display: flex;
+    justify-content: left;
+}
+
+.container {
+    padding-left: 20%;
+    padding-top: 30px;
+}

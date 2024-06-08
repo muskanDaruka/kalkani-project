@@ -5,7 +5,7 @@ import './CharacterSearch.css';
 
 function CharacterSearch() {
     const [search, setSearch] = useState('');
-    const [character, setCharacter] = useState([]);
+    const [characters, setcharacters] = useState([]);
     const [page, setPage] = useState(1);
 
     const handleSearch = (event) => {
@@ -27,10 +27,10 @@ function CharacterSearch() {
 
         fetch(url)
             .then(response => response.json())
-            .then(data => setCharacter(data.data))
+            .then(data => setcharacters(data.data))
             .catch(error => {
                 console.error('Error fetching characters:', error);
-                setCharacter([]);
+                setcharacters([]);
             });
     }, [search, page]);
 
@@ -41,25 +41,25 @@ function CharacterSearch() {
                 <input
                     type='text'
                     value={search}
-                    placeholder='Search Characters...'
+                    placeholder='Search characters...'
                     className='search-bar'
                     onChange={handleSearch}
                 />
             </div>
             <div>
-                {character && character.length > 0 ? (
+                {characters && characters.length > 0 ? (
                     <ul>
-                        {character.map((char) => (
+                        {characters.map((char) => (
                             <li>{char.name}</li>
                         ))}
                     </ul>
                 ) : (
-                    <p>No character found</p>
+                    <p>No characters found</p>
                 )}
             </div>
             <span>
                 {page > 1 && <button onClick={handlePreviousPage}>Back</button>}
-                {character && character.length === 15 && <button onClick={handleNextpage}>Next</button>}
+                {characters && characters.length === 15 && <button onClick={handleNextpage}>Next</button>}
             </span>
         </>
     )

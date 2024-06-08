@@ -21,14 +21,17 @@ function CharacterSearch() {
         setPage((prevPage) => prevPage + 1);
     }
     useEffect(() => {
-        if (search.length === 0) {
-            setCharacter([])
-            return;
-        }
-        fetch(`https://api.jikan.moe/v4/characters?page=${page}&limit=15&q=${search}&order_by=favorites&sort=desc`)
+        const url = search.length === 0
+            ? `https://api.jikan.moe/v4/characters?page=${page}&limit=15&order_by=favorites&sort=desc`
+            : `https://api.jikan.moe/v4/characters?page=${page}&limit=15&q=${search}&order_by=favorites&sort=desc`;
+
+        fetch(url)
             .then(response => response.json())
             .then(data => setCharacter(data.data))
-            .catch(error => console.error('Error fetching characters:', error));
+            .catch(error => {
+                console.error('Error fetching characters:', error);
+                setCharacter([]);
+            });
     }, [search, page]);
 
     return (
